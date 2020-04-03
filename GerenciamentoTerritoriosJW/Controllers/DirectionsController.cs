@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GerenciamentoTerritoriosJW.Core.Models;
+using GerenciamentoTerritoriosJW.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,20 +11,17 @@ namespace GerenciamentoTerritoriosJW.Controllers
 {
     public class DirectionsController : Controller
     {
+        private IDirectionRepository directionRepository;
+
+        public DirectionsController(IDirectionRepository directionRepository)
+        {
+            this.directionRepository = directionRepository;
+
+        }
         // GET: Directions
         public ActionResult Index()
         {
-            return View(new List<Direction>
-            {
-                new Direction
-                {
-                    StreetName = "Rua Thyrso Burgos Lopes",
-                    HouseNumber = "666",
-                    Neighborhood = "Itaim Paulista",
-                    City = "São Paulo",
-                    State = "SP",
-                }
-            });
+            return View(this.directionRepository.ListCard(879));
         }
 
         // GET: Directions/Details/5

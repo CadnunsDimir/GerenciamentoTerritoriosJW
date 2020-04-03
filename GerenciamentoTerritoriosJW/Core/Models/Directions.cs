@@ -7,12 +7,13 @@ namespace GerenciamentoTerritoriosJW.Core.Models
 {
     public class Direction
     {
+        public int DirectionId { get; set; }
         public string StreetName { get; set; }
         public string HouseNumber { get; set; }
         public string Neighborhood { get; set; }
-
+        public string PostalCode { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-
+        public int CardNumber { get; set; }
     }
 }
