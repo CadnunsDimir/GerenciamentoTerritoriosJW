@@ -10,6 +10,12 @@
     @*<a asp-action="Create">Create New</a>*@
     <a id="createNewDirection">Create New</a>
 </p>
+
+<div class="form-group">
+    <label for="exampleFormControlSelect1">Example select</label>
+    <select class="form-control" id="cardList">
+    </select>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -59,6 +65,14 @@
     </tbody>
 </table>
 
+<div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush" id="direcionList">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+</div>
+
 <div class="modal" tabindex="-1" role="dialog" id="modalCreate">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -70,6 +84,7 @@
             </div>
             <div class="modal-body">
                 <p>Modal body text goes here.</p>
+                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=MBnGjWivWgNhv5gO8W5GnZx87Y4=" alt="Alternate Text" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Save changes</button>

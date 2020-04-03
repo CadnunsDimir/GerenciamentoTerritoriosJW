@@ -21,6 +21,13 @@ namespace GerenciamentoTerritoriosJW.Controllers
         // GET: Directions
         public ActionResult Index()
         {
+            //directionRepository.Insert(new Direction
+            //{
+            //    CardNumber = 765,
+            //    StreetName = "Rua das Caravelas",
+            //    HouseNumber = "819"
+            //});
+
             return View(this.directionRepository.ListCard(879));
         }
 
