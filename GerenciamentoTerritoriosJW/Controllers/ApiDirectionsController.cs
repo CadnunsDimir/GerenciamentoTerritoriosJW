@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using GerenciamentoTerritoriosJW.Core.Models;
 using GerenciamentoTerritoriosJW.Core.Services;
 using GerenciamentoTerritoriosJW.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GerenciamentoTerritoriosJW.Controllers
 {
@@ -45,8 +47,25 @@ namespace GerenciamentoTerritoriosJW.Controllers
 
         // PUT: api/ApiDirections/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] Direction direction)
         {
+            
+            
+            if (!directionRepository.Exists(id))
+            {
+                Response.StatusCode = 404;
+            }
+
+            try
+            {
+                directionRepository.Update(direction);
+            }
+            catch (DbUpdateConcurrencyException) when (!directionRepository.Exists(id))
+            {
+                Response.StatusCode = 404;
+            }
+
+            Response.StatusCode = 204;
         }
 
         // DELETE: api/ApiWithActions/5

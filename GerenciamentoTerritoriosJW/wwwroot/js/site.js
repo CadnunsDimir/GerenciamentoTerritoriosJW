@@ -27,14 +27,15 @@ app = (function () {
     var inner = {}
     inner.directionScreen = function () {
         var btnCreate;
+        var apiUrl = "/api/directions/";
+
         function fetchCard(cardNumber) {
-            $.get("/api/directions/" + cardNumber, function (data) {
+            $.get(apiUrl + cardNumber, function (data) {
                 console.log(data);
-                $('#direcionList').html('');
+                var lista = $('#direcionList').html('');
                 data.directions.forEach(x => {
-                    //var li = $('<li class="list-group-item">' + x.streetName + ',' + x.houseNumber + '</li>');
-                    var li = $(node('li', x.streetName + ',' + x.houseNumber, 'list-group-item'));
-                    $('#direcionList').append(li);
+                    var li = $(node('li', x.streetName + ', ' + x.houseNumber, 'list-group-item'));
+                    lista.append(li);
                     li.data('direction-id', x.directionId);
                     li.click(el => {
                         console.log($(el.target).data('direction-id'));
@@ -42,15 +43,17 @@ app = (function () {
                 });
             });
         }
-        function fetchCardList(loadFirstCard) {
-            $.get("/api/directions", function (data) {
+        function fetchCardList(loadFirstCard, selectedCard) {
+            $.get(apiUrl, function (data) {
                 console.log(data);
                 var select = $("#cardList");
                 select.html('');
                 if (data.cardsNumbers) {
-                    data.cardsNumbers.forEach(x => select.append('<option>' + x + '</option>'));
+                    data.cardsNumbers.forEach(x => select.append(node('option', x)));
                     if (loadFirstCard && (data.cardsNumbers.length > 0)) {
-                        fetchCard(data.cardsNumbers[0]);
+                        selectedCard = selectedCard || data.cardsNumbers[0];
+                        select.val(selectedCard);
+                        fetchCard(selectedCard);
                     }
                 }
             });
@@ -60,16 +63,16 @@ app = (function () {
             var newDirection = {};
             $("#createDirectionForm").serializeArray().forEach(x => newDirection[x.name] = x.value);
 
-            $.postJSON('/api/directions', newDirection, data => {
+            $.postJSON(apiUrl, newDirection, data => {
                 if (data.status == 200) {
                     $('#createDirectionForm').each(function () {
                         this.reset();
                     });
                     $('#modalCreate').modal('hide');
+                    fetchCardList(true, newDirection.cardNumber);
                 } else {
                     // show error
                 }
-                
             });
         }
         function initEvents() {

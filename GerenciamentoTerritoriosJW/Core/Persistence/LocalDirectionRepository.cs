@@ -37,8 +37,27 @@ namespace GerenciamentoTerritoriosJW.Core.Persistence
 
         public void Update(Direction direction)
         {
-            this.DataSet.Update(direction);
-            this.Db.SaveChanges();
+            var entity = DataSet.FirstOrDefault(item => item.DirectionId == direction.DirectionId);
+
+            // Validate entity is not null
+            if (entity != null)
+            {
+                entity.CardNumber = direction.CardNumber;
+                entity.City = direction.City;
+                entity.HouseNumber = direction.HouseNumber;
+                entity.Neighborhood = direction.Neighborhood;
+                entity.PostalCode = direction.PostalCode;
+                entity.State = direction.State;
+                entity.StreetName = direction.StreetName;
+
+                DataSet.Update(entity);
+                Db.SaveChanges();
+            }
+        }
+
+        public bool Exists(int id)
+        {
+            return DataSet.Any(x => x.DirectionId == id);
         }
     }
 }
