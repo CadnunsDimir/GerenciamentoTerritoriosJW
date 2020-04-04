@@ -33,6 +33,11 @@ namespace GerenciamentoTerritoriosJW
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

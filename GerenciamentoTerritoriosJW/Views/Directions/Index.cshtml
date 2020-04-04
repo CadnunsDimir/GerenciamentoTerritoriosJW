@@ -1,95 +1,74 @@
-﻿@model IEnumerable<GerenciamentoTerritoriosJW.Core.Models.Direction>
-
-@{
-    ViewData["Title"] = "View";
+﻿@{
+    ViewData["Title"] = "Cartões de Território";
 }
 
-<h2>View</h2>
+    <h2>Cartões de Território</h2>
 
 <p>
     @*<a asp-action="Create">Create New</a>*@
-    <a id="createNewDirection">Create New</a>
+    <a id="createNewDirection">Adicionar novo endereço</a>
 </p>
 
 <div class="form-group">
-    <label for="exampleFormControlSelect1">Example select</label>
-    <select class="form-control" id="cardList">
-    </select>
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StreetName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HouseNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Neighborhood)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.State)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StreetName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HouseNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Neighborhood)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.State)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-
-<div class="card" style="width: 18rem;">
-    <ul class="list-group list-group-flush" id="direcionList">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Vestibulum at eros</li>
-    </ul>
+    <label for="exampleFormControlSelect1">Selecione o cartão abaixo:</label>
+    <select class="form-control" id="cardList"></select>
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="modalCreate">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
-                <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=MBnGjWivWgNhv5gO8W5GnZx87Y4=" alt="Alternate Text" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+<div class="card">
+    <ul class="list-group list-group-flush" id="direcionList"></ul>
+</div>
+
+<form id="createDirectionForm">
+    <div class="modal" tabindex="-1" role="dialog" id="modalCreate">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    <h5 class="modal-title">Criar Novo Endereço</h5>
+                </div>
+                <div class="modal-body">
+                    @*<p>Modal body text goes here.</p>
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=MBnGjWivWgNhv5gO8W5GnZx87Y4=" alt="Alternate Text" />*@
+
+                    <div class="form-group">
+                        <label for="cardNumber">Número do cartão de território</label>
+                        <input type="number" class="form-control" required minlength="1" maxlength="5" id="cardNumber" name="cardNumber" placeholder="insira o nome da rua/avenida">
+                    </div>
+                    <div class="form-group">
+                        <label for="streetName">Logradouro</label>
+                        <input type="text" class="form-control" required minlength="5" maxlength="30" id="streetName" name="streetName" placeholder="insira o nome da rua/avenida">
+                    </div>
+                    <div class="form-group">
+                        <label for="houseNumber">Numero</label>
+                        <input type="text" class="form-control" required minlength="1" maxlength="6" id="houseNumber" name="houseNumber" placeholder="número da casa">
+                    </div>
+                    <div class="form-group">
+                        <label for="postalCode">CEP</label>
+                        <input type="text" class="form-control" id="postalCode" minlength="8" maxlength="8" name="postalCode" placeholder="Insira o cep da sua rua/avenida">
+                    </div>
+                    <div class="form-group">
+                        <label for="neighborhood">Bairro</label>
+                        <input type="text" class="form-control" id="neighborhood" minlength="4" maxlength="20" name="neighborhood" placeholder="Insira o nome do bairro">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Cidade</label>
+                        <input type="text" class="form-control" id="city" minlength="4" maxlength="30" name="city" placeholder="Insira o nome da cidade">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">UF</label>
+                        <select class="form-control" id="state" name="state"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

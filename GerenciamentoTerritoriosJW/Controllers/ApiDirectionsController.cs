@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GerenciamentoTerritoriosJW.Core.Models;
 using GerenciamentoTerritoriosJW.Core.Services;
 using GerenciamentoTerritoriosJW.Models;
 using Microsoft.AspNetCore.Http;
@@ -37,8 +38,9 @@ namespace GerenciamentoTerritoriosJW.Controllers
 
         // POST: api/ApiDirections
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Direction direction)
         {
+            directionRepository.Insert(direction);
         }
 
         // PUT: api/ApiDirections/5
